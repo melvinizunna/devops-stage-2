@@ -1,0 +1,4 @@
+# Dockerfile for Adminer
+FROM adminer
+
+EXPOSE 8080
