@@ -1,13 +1,10 @@
-# Dockerfile for React frontend
-FROM node:14-alpine as build-stage
+# Dockerfile for FastAPI backend
+FROM tiangolo/uvicorn-gunicorn-fastapi:python3.8
 
 WORKDIR /app
-COPY package*.json ./
-RUN npm install
-COPY . .
-RUN npm run build
+COPY ./app /app
 
-FROM nginx:alpine
-COPY --from=build-stage /app/build /usr/share/nginx/html
 EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "80"]
+
